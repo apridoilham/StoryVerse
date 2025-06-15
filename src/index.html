@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoryVerse</title>
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#8a2be2" />
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Lewati ke Konten</a>
+    <div id="app-shell">
+        <header id="app-header" class="hidden">
+            <div class="main-header container">
+                <a class="brand-name" href="#/">StoryVerse</a>
+                <button id="drawer-button" class="drawer-button" aria-label="Buka navigasi">☰</button>
+                <nav id="navigation-drawer" class="navigation-drawer">
+                    <ul id="nav-list" class="nav-list">
+                        <li><a href="#/" class="nav-link" data-route="/"><i class="fas fa-home"></i> Beranda</a></li>
+                        <li><a href="#/tambah" class="nav-link" data-route="/tambah"><i class="fas fa-plus-circle"></i> Tambah</a></li>
+                        <li><a href="#/simpan" class="nav-link" data-route="/simpan"><i class="fas fa-save"></i> Tersimpan</a></li>
+                        <li><a href="#/about" class="nav-link" data-route="/about"><i class="fas fa-info-circle"></i> Tentang</a></li>
+                        <li><a id="logout-button" href="#" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main-content" tabindex="-1"></main>
+
+        <footer id="app-footer" class="hidden">
+            <p>Copyright © 2025 - StoryVerse</p>
+        </footer>
+    </div>
+</body>
+</html>
