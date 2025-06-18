@@ -60,13 +60,21 @@ const PushNotification = {
         userVisibleOnly: true,
         applicationServerKey,
       });
+
+      const subscriptionJson = subscription.toJSON();
+      
+      // Membuat salinan dari object dan menghapus properti yang tidak diinginkan
+      const payload = { ...subscriptionJson };
+      delete payload.expirationTime;
   
-      await Data.subscribePush(subscription);
+      await Data.subscribePush(payload);
   
       Swal.fire('Berhasil!', 'Anda berhasil subscribe notifikasi.', 'success');
     } catch (err) {
       console.error('Gagal melakukan subscribe:', err);
-      Swal.fire('Gagal', `Gagal mengaktifkan notifikasi: ${err.message}`, 'error');
+      // Menampilkan pesan error yang lebih detail dari server jika ada
+      const errorMessage = err.response ? await err.response.json().then(json => json.message).catch(() => err.message) : err.message;
+      Swal.fire('Gagal', `Gagal mengaktifkan notifikasi: ${errorMessage}`, 'error');
     }
   },
 
