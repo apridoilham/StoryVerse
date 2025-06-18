@@ -1,4 +1,5 @@
 import CONFIG from "./config.js";
+import Data from "../data/api.js";
 
 const PushNotification = {
   async init(button) {
@@ -19,14 +20,14 @@ const PushNotification = {
     button.disabled = true;
 
     const permissionResult = await navigator.permissions.query({ name: 'push', userVisibleOnly: true });
-    
+
     if (permissionResult.state === 'granted') {
       Swal.fire('Sudah Aktif', 'Anda sudah mengaktifkan notifikasi.', 'info');
       this._updateButtonState(button, 'granted');
       button.disabled = false;
       return;
     }
-    
+
     if (permissionResult.state === 'denied') {
       Swal.fire('Diblokir', 'Anda telah memblokir izin notifikasi. Harap ubah setelan di browser Anda.', 'error');
       this._updateButtonState(button, 'denied');
@@ -46,7 +47,7 @@ const PushNotification = {
         this._updateButtonState(button, 'prompt');
       }
     }
-    
+
     button.disabled = false;
   },
 
@@ -54,13 +55,18 @@ const PushNotification = {
     try {
       const registration = await navigator.serviceWorker.ready;
       const applicationServerKey = this._urlBase64ToUint8Array(CONFIG.VAPID_PUBLIC_KEY);
-      await registration.pushManager.subscribe({
+      
+      const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey,
       });
-      Swal.fire('Berhasil!', 'Notifikasi telah diaktifkan.', 'success');
+  
+      await Data.subscribePush(subscription);
+  
+      Swal.fire('Berhasil!', 'Anda berhasil subscribe notifikasi.', 'success');
     } catch (err) {
-      Swal.fire('Gagal', 'Gagal mengaktifkan notifikasi.', 'error');
+      console.error('Gagal melakukan subscribe:', err);
+      Swal.fire('Gagal', `Gagal mengaktifkan notifikasi: ${err.message}`, 'error');
     }
   },
 
